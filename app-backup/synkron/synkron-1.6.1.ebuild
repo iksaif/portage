@@ -24,14 +24,15 @@ DEPEND="x11-libs/qt-core:4
 RDEPEND=""
 
 src_unpack() {
-        unpack ${A}
-        cd "${S}"
-	sed -i 's/qm/ts/g' i18n.qrc
+    unpack ${A}
+    cd "${S}"
+    lrelease Synkron.pro || die
 }
 
-src_install() {
-        dobin synkron || die "Couldn't install Synkron"
-        doicon images/Synkron128.png
 
-        make_desktop_entry synkron Synkron Synkron128 Utility
+src_install() {
+    dobin synkron || die "Couldn't install Synkron"
+    doicon images/Synkron128.png
+
+    make_desktop_entry synkron "Synkron" Synkron128
 }
