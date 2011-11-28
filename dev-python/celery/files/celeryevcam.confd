@@ -1,0 +1,31 @@
+## Example configuration
+# Full path to the python project directory.
+#CELERYD_CHDIR="/var/lib/myproject"
+# Extra arguments to celeryev
+#CELERYEV_OPTS="-x"
+# Camera class to use (required)
+#CELERYEV_CAM = "myapp.Camera"
+
+
+## Example for a django project
+# Where the Django project is.
+#CELERYD_CHDIR="/var/lib/wwww/localhost/myproject/"
+# Name of the projects settings module.
+#export DJANGO_SETTINGS_MODULE="settings"
+# Path to celeryd
+#CELERYEV="manage.py"
+# Extra arguments to manage.py
+#CELERYEV_OPTS="celeryev"
+# Camera class to use (required)
+#CELERYEV_CAM = "djcelery.snapshot.Camera"
+
+# Location and level of the celeryd log file
+#CELERYEV_LOG_FILE=/var/log/celery/celeryd.log
+#CELERYEV_LOG_LEVEL="INFO"
+
+# Location of the celeryd pid file
+#CELERYEV_PID_FILE=/var/run/celery/celeryd.pid
+
+# celeryd user and group
+#CELERYEV_USER="celery"
+#CELERYEV_GROUP="celery"

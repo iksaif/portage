@@ -1,0 +1,97 @@
+#!/sbin/runscript
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+depend() {
+	need net
+	use rabbitmq logger dns
+}
+
+DEFAULT_PID_FILE="/var/run/celery/celerybeat.pid"
+DEFAULT_LOG_FILE="/var/log/celery/celerybeat.log"
+DEFAULT_LOG_LEVEL="INFO"
+DEFAULT_CELERYBEAT="celerybeat"
+
+CELERYBEAT=${CELERYBEAT:-$DEFAULT_CELERYBEAT}
+CELERYBEAT_PID_FILE=${CELERYBEAT_PID_FILE:-${CELERYBEAT_PIDFILE:-$DEFAULT_PID_FILE}}
+CELERYBEAT_LOG_FILE=${CELERYBEAT_LOG_FILE:-${CELERYBEAT_LOGFILE:-$DEFAULT_LOG_FILE}}
+CELERYBEAT_LOG_LEVEL=${CELERYBEAT_LOG_LEVEL:-${CELERYBEAT_LOGLEVEL:-$DEFAULT_LOG_LEVEL}}
+
+export CELERY_LOADER
+
+CELERYBEAT_OPTS="$CELERYBEAT_OPTS -f $CELERYBEAT_LOG_FILE -l $CELERYBEAT_LOG_LEVEL"
+
+CELERYBEAT_LOG_DIR=`dirname $CELERYBEAT_LOG_FILE`
+CELERYBEAT_PID_DIR=`dirname $CELERYBEAT_PID_FILE`
+if [ ! -d "$CELERYBEAT_LOG_DIR" ]; then
+	mkdir -p $CELERYBEAT_LOG_DIR
+fi
+if [ ! -d "$CELERYBEAT_PID_DIR" ]; then
+	mkdir -p $CELERYBEAT_PID_DIR
+fi
+
+# Extra start-stop-daemon options, like user/group.
+if [ -n "$CELERYBEAT_USER" ]; then
+	DAEMON_OPTS="$DAEMON_OPTS --uid $CELERYBEAT_USER"
+	chown "$CELERYBEAT_USER" $CELERYBEAT_LOG_DIR $CELERYBEAT_PID_DIR
+fi
+if [ -n "$CELERYBEAT_GROUP" ]; then
+	DAEMON_OPTS="$DAEMON_OPTS --gid $CELERYBEAT_GROUP"
+	chown ":$CELERYBEAT_GROUP" $CELERYBEAT_LOG_DIR $CELERYBEAT_PID_DIR
+fi
+
+CELERYBEAT_CHDIR=${CELERYBEAT_CHDIR:-$CELERYD_CHDIR}
+if [ -n "$CELERYBEAT_CHDIR" ]; then
+	DAEMON_OPTS="$DAEMON_OPTS --workdir $CELERYBEAT_CHDIR"
+fi
+
+
+export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
+
+check_dev_null() {
+	if [ ! -c /dev/null ]; then
+		eerror "/dev/null is not a character device!"
+		return 1
+	fi
+	return 0
+}
+
+wait_pid () {
+	pid=$1
+	i=0
+	while true; do
+		kill -0 $pid 1>/dev/null 2>&1
+		if [ $? -eq 1 ]; then
+			return 0
+		else
+			kill -TERM "$pid"
+			i=$((i + 1))
+			if [ $i -gt 60 ]; then
+				return 1
+			else
+				sleep 0.5
+			fi
+		fi
+	done
+}
+
+start() {
+	check_dev_null || return 1
+
+	ebegin "Starting ${SVCNAME}"
+	$CELERYBEAT $CELERYBEAT_OPTS $DAEMON_OPTS --detach \
+                --pidfile="$CELERYBEAT_PID_FILE"
+	eend $?
+}
+
+
+stop() {
+	ebegin "Stopping ${SVCNAME}"
+	if [ -f "$CELERYBEAT_PID_FILE" ]; then
+		wait_pid $(cat "$CELERYBEAT_PID_FILE")
+	else
+		eerror "not running"
+	fi
+	eend $?
+}

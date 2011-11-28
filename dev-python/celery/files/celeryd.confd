@@ -1,0 +1,28 @@
+# /etc/conf.d/celeryd
+
+CELERYD_NODES="celery"
+
+# 5 minute hard time limit for tasks
+#CELERYD_OPTS="--time-limit=300"
+
+## Example for a python project:
+# Full path to the python project directory.
+#CELERYD_CHDIR="/var/lib/myproject"
+
+## Example for a django project:
+# Full path to the Django project directory.
+#CELERYD_CHDIR="/var/lib/wwww/localhost/myproject/"
+# Use manage.py
+#CELERYD="$CELERYD_CHDIR/manage.py"
+#CELERYD_OPTS="celeryd $CELERYD_OPTS"
+
+# Location and level of the celeryd log file
+#CELERYD_LOG_FILE=/var/log/celery/celeryd.log
+#CELERYD_LOG_LEVEL="INFO"
+
+# Location of the celeryd pid file
+#CELERYD_PID_FILE=/var/run/celery/celeryd.pid
+
+# celeryd user and group
+#CELERYD_USER="celery"
+#CELERYD_GROUP="celery"

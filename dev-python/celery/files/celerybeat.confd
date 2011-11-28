@@ -1,0 +1,26 @@
+# /etc/conf.d/celerybeat
+
+#CELERYBEAT_OPTS=""
+
+## Example for a python project:
+# Full path to the python project directory.
+#CELERYBEAT_CHDIR="/var/lib/myproject"
+
+## Example for a django project:
+# Full path to the Django project directory.
+#CELERYBEAT_CHDIR="/var/lib/wwww/localhost/myproject/"
+# Use manage.py
+#CELERYBEAT="$CELERYBEAT_CHDIR/manage.py"
+#CELERYBEAT_OPTS="celerybeat $CELERYBEAT_OPTS"
+
+# Location and level of the celerybeat log file
+#CELERYBEAT_LOG_FILE=/var/log/celery/celerybeat.log
+#CELERYBEAT_LOG_LEVEL="INFO"
+
+# Location of the celeryd pid file
+#CELERYBEAT_PID_FILE=/var/run/celery/celerybeat.pid
+
+# celerybeat user and group
+#CELERYBEAT_USER="celeryd"
+#CELERYBEAT_GROUP="celeryd"
+
