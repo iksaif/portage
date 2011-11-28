@@ -4,6 +4,7 @@
 
 EAPI="2"
 PYTHON_DEPEND="2"
+RESTRICT_PYTHON_ABIS="3.*"
 SUPPORT_PYTHON_ABIS="1"
 
 inherit distutils eutils
@@ -27,8 +28,6 @@ DEPEND="${RDEPEND}
 	dev-python/setuptools"
 
 RESTRICT="test"
-
-RESTRICT_PYTHON_ABIS="3.*"
 
 src_install () {
 

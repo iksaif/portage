@@ -10,11 +10,7 @@ CELERYD_NODES="celery"
 #CELERYD_CHDIR="/var/lib/myproject"
 
 ## Example for a django project:
-# Full path to the Django project directory.
-#CELERYD_CHDIR="/var/lib/wwww/localhost/myproject/"
-# Use manage.py
-#CELERYD="$CELERYD_CHDIR/manage.py"
-#CELERYD_OPTS="celeryd $CELERYD_OPTS"
+#CELERYD_DJANGO="/var/lib/wwww/localhost/myproject/"
 
 # Location and level of the celeryd log file
 #CELERYD_LOG_FILE=/var/log/celery/celeryd.log

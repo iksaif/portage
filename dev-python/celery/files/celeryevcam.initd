@@ -22,10 +22,13 @@ CELERYEV_LOG_LEVEL=${CELERYEV_LOG_LEVEL:-${CELERYEV_LOG_LEVEL:-$DEFAULT_LOG_LEVE
 
 export CELERY_LOADER
 
-if [ -z "$CELERYEV_CAM" ]; then
-	eerror "Missing CELERYEV_CAM variable"
-	exit
-fi
+check_config() {
+	if [ -z "$CELERYEV_CAM" ]; then
+		eerror "Missing CELERYEV_CAM variable"
+		return 1
+	fi
+	return 0
+}
 
 CELERYEV_OPTS="$CELERYEV_OPTS -f $CELERYEV_LOG_FILE -l $CELERYEV_LOG_LEVEL -c $CELERYEV_CAM"
 
@@ -85,6 +88,7 @@ wait_pid () {
 
 
 start() {
+	check_config || return 1
 	check_dev_null || return 1
 
 	ebegin "Starting ${SVCNAME}"
@@ -94,6 +98,8 @@ start() {
 }
 
 stop() {
+	check_config || return 1
+
 	ebegin "Stopping ${SVCNAME}"
 	if [ -f "$CELERYEV_PID_FILE" ]; then
 		wait_pid $(cat "$CELERYEV_PID_FILE")
