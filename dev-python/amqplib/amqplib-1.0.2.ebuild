@@ -19,12 +19,6 @@ IUSE="examples extras test"
 RDEPEND=""
 DEPEND="${RDEPEND}"
 
-#src_prepare() {
-#	if use test; then
-#		epatch "${FILESDIR}/${P}_disable_socket_tests.patch"
-#	fi
-#}
-
 src_test() {
 
 	testing() {
