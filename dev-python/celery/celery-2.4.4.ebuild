@@ -34,16 +34,8 @@ src_install () {
 	distutils_src_install --install-scripts="/usr/bin"
 
 	# Main celeryd init.d and conf.d
-	newinitd "${FILESDIR}/celeryd.initd" celeryd
-	newconfd "${FILESDIR}/celeryd.confd" celeryd
-
-	# celerybeat init.d and conf.d
-	newinitd "${FILESDIR}/celerybeat.initd" celerybeat
-	newconfd "${FILESDIR}/celerybeat.confd" celerybeat
-
-	# celeryevcam init.d and conf.d
-	newinitd "${FILESDIR}/celeryevcam.initd" celeryevcam
-	newconfd "${FILESDIR}/celeryevcam.confd" celeryevcam
+	newinitd "${FILESDIR}/celery.initd" celery
+	newconfd "${FILESDIR}/celery.confd" celery
 }
 
 pkg_postinst() {

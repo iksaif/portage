@@ -3,8 +3,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-SVCSUFFIX=${SVCNAME#*.}
-
 depend() {
 	need net
 	use rabbitmq logger dns
@@ -13,7 +11,7 @@ depend() {
 DEFAULT_PID_FILE="/var/run/celery/celeryev.pid"
 DEFAULT_LOG_FILE="/var/log/celery/celeryev.log"
 DEFAULT_LOG_LEVEL="INFO"
-DEFAULT_CELERYEV="/usr/bin/celeryev"
+DEFAULT_CELERYEV="celeryev"
 
 CELERYEV=${CELERYEV:-$DEFAULT_CELERYEV}
 CELERYEV_PID_FILE=${CELERYEV_PID_FILE:-${CELERYEV_PIDFILE:-$DEFAULT_PID_FILE}}
