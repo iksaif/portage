@@ -71,9 +71,6 @@ fi
 if [ -n "$CELERY_GROUP" ]; then
 	DAEMON_OPTS="$DAEMON_OPTS --gid=$CELERY_GROUP"
 fi
-if [ -n "$CELERY_PROJDIR" ]; then
-	DAEMON_OPTS="$DAEMON_OPTS --workdir=\"$CELERY_PROJDIR\""
-fi
 
 checkconfig() {
 	if [ ! -c /dev/null ]; then
