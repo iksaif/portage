@@ -114,7 +114,8 @@ wait_pid () {
 	local timeout=${STOPTIMEOUT:-"10"}
 	local PID=$(cat "${pidfile}" 2>/dev/null)
 
-	while [[ -n "$PID" && $( kill -0 $PID 2>/dev/null ) && "${timeout}" -ge 1 ]] ; do
+	while [[ -n "$PID" && "${timeout}" -ge 1 ]] ; do
+		kill -0 $PID 2>/dev/null || break
 		kill -TERM "$PID"
 		timeout=$(($timeout - 1))
 		sleep 0.5
@@ -144,7 +145,8 @@ stop_workers() {
 
 	$CELERYD_MULTI stop $CELERYD_NODES --pidfile="$CELERYD_PID_FILE" || return 1
 
-	while [[ -n "$PID" && $( kill -0 $PID 2>/dev/null ) && "${timeout}" -ge 1 ]] ; do
+	while [[ -n "$PID" && "${timeout}" -ge 1 ]] ; do
+		kill -0 $PID 2>/dev/null || break
 		timeout=$(($timeout - 1))
 		sleep 0.5
 	done
@@ -180,7 +182,7 @@ stop_ev() {
 
 	ebegin "Stopping celeryev"
 	if [ -f "$CELERYEV_PID_FILE" ]; then
-		wait_pid "$CELERYEV_PID_FILE" "yes"
+		wait_pid "$CELERYEV_PID_FILE"
 	else
 		eerror "not running"
 	fi
@@ -203,7 +205,7 @@ stop_beat() {
 
 	ebegin "Stopping celerybeat"
 	if [ -f "$CELERYBEAT_PID_FILE" ]; then
-		wait_pid "$CELERYBEAT_PID_FILE" "yes"
+		wait_pid "$CELERYBEAT_PID_FILE"
 	else
 		eerror "not running"
 	fi
