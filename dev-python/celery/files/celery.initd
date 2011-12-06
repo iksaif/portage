@@ -32,17 +32,18 @@ CELERYCTL=${CELERYCTL:-"celeryctl"}
 
 export CELERY_LOADER
 
+if yesno "$CELERY_DJANGO"; then
+	CELERYD=${CELERYD:-"celeryd_detach"}
+	CELERYCTL=${CELERYCTL:-"python manage.py celeryd"}
+	CELERYD_MULTI=${CELERYD_MULTI:-"python manage.py celeryd_multi"}
+	CELERYBEAT=${CELERYBEAT:-"python manage.py celerybeat"}
+	CELERYEV=${CELERYEV:-"python manage.py celeryev"}
+	CELERYEV_CAM=${CELERYEV_CAM:-"djcelery.snapshot.Camera"}
+fi
+
 CELERYD_OPTS="$CELERYD_OPTS -f $CELERYD_LOG_FILE -l $CELERYD_LOG_LEVEL"
 CELERYBEAT_OPTS="$CELERYBEAT_OPTS -f $CELERYBEAT_LOG_FILE -l $CELERYBEAT_LOG_LEVEL"
 CELERYEV_OPTS="$CELERYEV_OPTS -f $CELERYEV_LOG_FILE -l $CELERYEV_LOG_LEVEL -c $CELERYEV_CAM"
-
-if yesno "$CELERY_DJANGO"; then
-	CELERYD="celeryd_detach"
-	CELERYCTL="python manage.py celeryd"
-	CELERYD_MULTI="python manage.py celeryd_multi"
-	CELERYBEAT="python manage.py celerybeat"
-	CELERYEV="python manage.py celeryev"
-fi
 
 create_dirs() {
 	local logfile="$1"
@@ -122,6 +123,7 @@ wait_pid () {
 	done
 
 	[[ "${timeout}" -lt 1 ]] && return 1
+	[ -f $pidfile ] && rm -f $pidfile
 	return 0
 }
 
@@ -141,14 +143,18 @@ stop_workers() {
 	yesno "${CELERYD_ENABLED}" || return 0
 
 	local timeout=${STOPTIMEOUT:-"10"}
-	local PID=$(cat "${pidfile}" 2>/dev/null)
 
 	$CELERYD_MULTI stop $CELERYD_NODES --pidfile="$CELERYD_PID_FILE" || return 1
 
-	while [[ -n "$PID" && "${timeout}" -ge 1 ]] ; do
+	# Wait for each node
+	for node in $CELERYD_NODES; do
+	    local pidfile=${CELERYD_PID_FILE/\%n/$node}
+	    local PID=$(cat "${pidfile}" 2>/dev/null)
+	    while [[ -n "$PID" && "${timeout}" -ge 1 ]] ; do
 		kill -0 $PID 2>/dev/null || break
 		timeout=$(($timeout - 1))
 		sleep 0.5
+	    done
 	done
 
 	[[ "${timeout}" -lt 1 ]] && return 1

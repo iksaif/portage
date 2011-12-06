@@ -8,6 +8,9 @@
 #CELERY_GROUP="celery"
 
 # Is this for a django project ?
+# If 'yes' it will automatically setup CELERYD, CELERYCTL
+# CELERYD_MULTI, CELERYBEAT, CELERYEV and CELERYEV_CAM for a
+# django project, but you can still override them here.
 #CELERY_DJANGO="yes"
 
 # Full path to the python project directory.
