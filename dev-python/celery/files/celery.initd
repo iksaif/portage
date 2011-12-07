@@ -14,8 +14,6 @@ CELERYD_ENABLED=${CELERYD_ENABLED:-"no"}
 CELERYD_PID_FILE=${CELERYD_PID_FILE:-"/var/run/celery/celeryd@%n.pid"}
 CELERYD_LOG_FILE=${CELERYD_LOG_FILE:-"/var/log/celery/celeryd@%n.log"}
 CELERYD_LOG_LEVEL=${CELERYD_LOG_LEVEL:-"INFO"}
-CELERYD_MULTI=${CELERYD_MULTI:-"celeryd-multi"}
-CELERYD=${CELERYD:-"-m celery.bin.celeryd_detach"}
 CELERYD_NODES=${CELERYD_NODES:-"celery"}
 
 CELERYBEAT_ENABLED=${CELERYBEAT_ENABLED:-"no"}
@@ -28,8 +26,6 @@ CELERYEV_PID_FILE=${CELERYEV_PID_FILE:-"/var/run/celery/celeryev.pid"}
 CELERYEV_LOG_FILE=${CELERYEV_LOG_FILE:-"/var/log/celery/celeryev.log"}
 CELERYEV_LOG_LEVEL=${CELERYEV_LOG_LEVEL:-"INFO"}
 
-CELERYCTL=${CELERYCTL:-"celeryctl"}
-
 export CELERY_LOADER
 
 if yesno "$CELERY_DJANGO"; then
@@ -39,6 +35,12 @@ if yesno "$CELERY_DJANGO"; then
 	CELERYBEAT=${CELERYBEAT:-"python manage.py celerybeat"}
 	CELERYEV=${CELERYEV:-"python manage.py celeryev"}
 	CELERYEV_CAM=${CELERYEV_CAM:-"djcelery.snapshot.Camera"}
+else
+	CELERYD=${CELERYD:-"-m celery.bin.celeryd_detach"}
+	CELERYD_MULTI=${CELERYD_MULTI:-"celeryd-multi"}
+	CELERYCTL=${CELERYCTL:-"celeryctl"}
+	CELERYBEAT=${CELERYBEAT:-"celerybeat"}
+	CELERYEV=${CELERYEV:-"celeryev"}
 fi
 
 CELERYD_OPTS="$CELERYD_OPTS -f $CELERYD_LOG_FILE -l $CELERYD_LOG_LEVEL"
