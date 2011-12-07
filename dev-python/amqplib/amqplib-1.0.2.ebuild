@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI="3"
+PYTHON_DEPEND="2 3"
 SUPPORT_PYTHON_ABIS="1"
 
 inherit distutils
@@ -14,7 +15,7 @@ SRC_URI="http://py-amqplib.googlecode.com/files/${P}.tgz"
 LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="examples extras test"
+IUSE="examples extras"
 
 RDEPEND=""
 DEPEND="${RDEPEND}"
