@@ -38,6 +38,3 @@ src_install () {
 	newconfd "${FILESDIR}/celery.confd" celery
 }
 
-pkg_postinst() {
-	distutils_pkg_postinst
-}

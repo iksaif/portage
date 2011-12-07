@@ -5,7 +5,7 @@
 EAPI="3"
 SUPPORT_PYTHON_ABIS="1"
 
-inherit distutils eutils
+inherit distutils
 
 DESCRIPTION="Python client for the Advanced Message Queuing Procotol (AMQP)"
 HOMEPAGE="http://code.google.com/p/py-amqplib/"
@@ -22,7 +22,7 @@ DEPEND="${RDEPEND}"
 src_test() {
 
 	testing() {
-		PYTHONPATH="build-${PYTHON_ABI}/lib" python \
+		PYTHONPATH="build-${PYTHON_ABI}/lib" "$(PYTHON)" \
 			"tests/client_0_8/run_all.py"
 	}
 
