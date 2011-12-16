@@ -2,9 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI="4"
 PYTHON_DEPEND="*::3.2"
 SUPPORT_PYTHON_ABIS="1"
+
 inherit distutils
 
 DESCRIPTION="Basic functions for handling mime-types in python"
@@ -15,3 +16,8 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
+
+RDEPEND=""
+DEPEND="${RDEPEND}
+	dev-python/setuptools"
+
