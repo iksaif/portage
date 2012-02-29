@@ -1,27 +1,27 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="4"
 PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="3.*"
-DISTUTILS_SRC_TEST="setup.py"
+SUPPORT_PYTHON_ABIS="1"
 
 inherit distutils
 
-DESCRIPTION="Celery Integration for Django"
-HOMEPAGE="http://celeryproject.org/"
+DESCRIPTION="Django test runner that uses nose"
+HOMEPAGE="https://github.com/jbalogh/django-nose"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-RDEPEND="dev-python/django-picklefield
-	>=dev-python/celery-2.5.0
-	>=dev-python/django-1.3"
-
+RDEPEND=""
 DEPEND="${RDEPEND}
+	dev-python/nose
+	dev-python/django
+	dev-python/south
 	dev-python/setuptools"
+
+PYTHON_MODNAME="django_nose"
