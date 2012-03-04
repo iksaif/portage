@@ -1,0 +1,70 @@
+--- a/tests/client_0_8/test_serialization.py	2012-03-04 11:27:00.337772273 +0100
++++ b/tests/client_0_8/test_serialization.py	2012-03-04 11:40:16.503763111 +0100
+@@ -36,6 +36,17 @@
+ 
+ from amqplib.client_0_8.serialization import AMQPReader, AMQPWriter, GenericContent
+ 
++"""
++Helper for Py3k Compatibility
++"""
++if sys.version_info[0] >= 3:
++    def u(s):
++        return s
++else:
++    def u(s):
++        return unicode(s, "unicode_escape")
++
++
+ class TestSerialization(unittest.TestCase):
+     if sys.version_info[0] >= 3:
+         def assertEqualBinary(self, b, s):
+@@ -47,7 +58,6 @@
+     else:
+         assertEqualBinary = unittest.TestCase.assertEqual
+ 
+-
+     def test_empty_writer(self):
+         w = AMQPWriter()
+         self.assertEqual(w.getvalue(), bytes())
+@@ -232,12 +242,12 @@
+ 
+     def test_shortstr_unicode(self):
+         w = AMQPWriter()
+-        w.write_shortstr(u'hello')
++        w.write_shortstr(u('hello'))
+         s = w.getvalue()
+         self.assertEqualBinary(s, '\x05hello')
+ 
+         r = AMQPReader(s)
+-        self.assertEqual(r.read_shortstr(), u'hello')
++        self.assertEqual(r.read_shortstr(), u('hello'))
+ 
+     def test_long_shortstr(self):
+         w = AMQPWriter()
+@@ -245,7 +255,7 @@
+ 
+     def test_long_shortstr_unicode(self):
+         w = AMQPWriter()
+-        self.assertRaises(ValueError, w.write_shortstr, u'\u0100' * 128)
++        self.assertRaises(ValueError, w.write_shortstr, u('\u0100') * 128)
+ 
+ 
+     #
+@@ -273,7 +283,7 @@
+         self.assertEqual(r.read_longstr(), str(val))
+ 
+     def test_longstr_unicode(self):
+-        val = u'a' * 512
++        val = u('a') * 512
+         w = AMQPWriter()
+         w.write_longstr(val)
+         s = w.getvalue()
+@@ -324,7 +334,7 @@
+             'foo': 7,
+             'bar': Decimal('123345.1234'),
+             'baz': 'this is some random string I typed',
+-            'ubaz': u'And something in unicode',
++            'ubaz': u('And something in unicode'),
+             'dday_aniv': datetime(1994, 6, 6),
+             'more': {
+                         'abc': -123,

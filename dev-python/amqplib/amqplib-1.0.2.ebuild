@@ -23,6 +23,7 @@ DEPEND="${RDEPEND}"
 src_prepare() {
 	if use test; then
 		epatch "${FILESDIR}/${PN}-0.6.1_disable_socket_tests.patch"
+		epatch "${FILESDIR}/${PN}-1.0.2_fix_unicode_tests.patch"
 	fi
 }
 
