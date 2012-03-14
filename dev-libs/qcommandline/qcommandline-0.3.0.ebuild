@@ -6,7 +6,7 @@ inherit cmake-utils
 
 DESCRIPTION="Command line parser for Qt (like getopt)."
 HOMEPAGE="http://xf.iksaif.net/dev/qcommandline.html"
-SRC_URI="http://xf.iksaif.net/dev/qcommandline/${P}.tar.bz2"
+SRC_URI="http://xf.iksaif.net/dev/${PN}/${P}.tar.bz2"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
