@@ -13,11 +13,11 @@ inherit distutils
 DESCRIPTION="A flexible and capable API layer for django"
 HOMEPAGE="http://pypi.python.org/pypi/django-tastypie https://github.com/toastdriven/django-tastypie"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-KEYWORDS="~amd64"
-IUSE="doc yaml xml biplist oauth digest"
 
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS="~amd64"
+IUSE="doc yaml xml biplist oauth digest"
 
 PYTHON_MODNAME="tastypie"
 
