@@ -3,25 +3,25 @@
 # $Header: $
 
 EAPI="4"
-PYTHON_DEPEND="2 3"
-RESTRICT_PYTHON_ABIS="2.4"
+PYTHON_DEPEND="2"
+RESTRICT_PYTHON_ABIS="3.*"
 SUPPORT_PYTHON_ABIS="1"
 
 inherit distutils
 
-DESCRIPTION="AMQP Messaging Framework for Python"
-HOMEPAGE="https://github.com/ask/kombu"
+DESCRIPTION="Django test runner that uses nose"
+HOMEPAGE="https://github.com/jbalogh/django-nose"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 
-RDEPEND=">=dev-python/anyjson-0.3.1
-	>=dev-python/amqplib-1.0"
-
+RDEPEND=""
 DEPEND="${RDEPEND}
+	>=dev-python/nose-1.0
+	>=dev-python/django-1.2
+	>=dev-python/south-0.7
 	dev-python/setuptools"
 
-
+PYTHON_MODNAME="django_nose"
