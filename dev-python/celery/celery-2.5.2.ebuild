@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,17 +21,18 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="sql test"
 
-# Support for python <= 2.6 would need ordereddict, test? unittest2
-# Support for python <= 2.5 would need multiprocessing, test? simplejson
+# jython would need: threadpool, simplejson
+# python2.5 would need: ordereddict, test? unittest2
+# python2.6 would need: multiprocessing, test? simplejson
 RDEPEND=">=dev-python/kombu-2.1.1
+	<dev-python/kombu-3.0
 	sql? ( dev-python/sqlalchemy )
-	dev-python/python-dateutil:python-2
-	dev-python/python-dateutil:python-3
+	dev-python/python-dateutil
 	>=dev-python/anyjson-0.3.1
-	dev-python/pyparsing"
+	dev-python/pyparsing
+	"
 DEPEND="${RDEPEND}
 	test? (
-	      >=dev-python/unittest2-0.4.0
 	      >=dev-python/mock-0.7.0
 	      dev-python/pyopenssl
 	      dev-python/nose-cover3
@@ -57,4 +58,3 @@ src_install() {
 	newinitd "${FILESDIR}/celery.initd" celery
 	newconfd "${FILESDIR}/celery.confd" celery
 }
-

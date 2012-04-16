@@ -25,9 +25,14 @@ DEPEND="${RDEPEND}
 	test? ( dev-python/nose-cover3 dev-python/mock )
 	dev-python/setuptools"
 
+# If you want to test all transports you also need to depend on:
+# redis, pymongo, couchdb, pika-0.5.2, beanstalkc, kombu-sqlalchemy, django (python2),
+# django-kombu (python2), boto, PyYAML-3.09, etc... it's a mess !
+# Also check setup.py and requirements/ for jython and pypy specific dependencies
+
 src_prepare() {
 	if use test; then
-		epatch "${FILESDIR}/${P}-add-assertIsInstance-with-unittest.patch"
+		epatch "${FILESDIR}/${PN}-2.1.1-add-assertIsInstance-with-unittest.patch"
 	fi
 }
 
