@@ -1,0 +1,33 @@
+# Mozutils
+dev-python/mozprocess
+dev-python/mozprofile
+dev-python/mozinfo
+dev-python/manifestdestiny
+
+# tastypie
+dev-python/django-tastypie
+dev-python/biplist
+dev-python/oauth2
+dev-python/django-oauth-plus
+dev-python/python-digest
+dev-python/mimeparse
+dev-python/cl
+django-picklefield
+
+# django-annoying
+django-annoying
+
+# django-nose
+django-nose
+
+# geopy
+dev-python/geopy
+
+# celery
+dev-python/celery
+dev-python/django-celery
+dev-python/kombu
+dev-python/anyjson
+dev-python/nose-cover3
+dev-python/cl
+
