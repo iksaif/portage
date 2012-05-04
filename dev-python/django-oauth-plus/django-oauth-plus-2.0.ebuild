@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,10 +18,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
-RDEPEND=">=dev-python/django-1.2.1
+RDEPEND=">=dev-python/django-1.2.4
 	>=dev-python/oauth2-1.5.170"
 DEPEND="${RDEPEND}
-	dev-python/setuptools"
+	dev-python/setuptools
+	dev-python/setuptools_hg"
 
 PYTHON_MODNAME="oauth_provider"
 
