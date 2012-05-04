@@ -14,7 +14,7 @@ HOMEPAGE="http://pypi.python.org/pypi/django-oauth-plus	http://code.welldev.org/
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
-SLOT="0"5B5B5B5B
+SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
